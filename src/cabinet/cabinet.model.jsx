@@ -10,7 +10,6 @@ export function CabinetModel() {
   const { nodes, materials } = useGLTF('/Cabinet.glb');
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
-  const testMaterial = new MeshBasicMaterial({ color: 'blue' });
 
   let keys = Object.keys(nodes);
 
@@ -26,7 +25,7 @@ export function CabinetModel() {
     return arr.sort();
   };
 
-  console.log('--', listSteps());
+  console.log('--list steps', listSteps());
   // Prepare a list for rearange position
   const testFirstPos = new Vector3(2, 2, 2);
   const copyFirst = Object.assign({}, testFirstPos);
@@ -53,6 +52,7 @@ export function CabinetModel() {
   }, []);
   /**
    * @todo Solution to go back to the original material after switch to hover,
+   * @todo create a fallback material in case the node does not have one.
    * @todo Investigate what will happen if the model, has just one material, multiple materials or none
    *
    */
@@ -75,17 +75,10 @@ export function CabinetModel() {
                   : key === seleceted
                     ? materialSelected
                     : materials[nodes[key].material?.name ?? 'nothing']
-                // : materials[test?.name ?? 'nothing']
-                // : materials['TrimMaterial']
-
-                // : testMaterial
-                // :materials['Material.001']
               }
-              // material={materials["Material.001"]}
               onPointerOver={(e) => {
                 e.stopPropagation();
                 setHover(key);
-                // console.log(key);
               }}
               onPointerOut={(e) => {
                 e.stopPropagation();
