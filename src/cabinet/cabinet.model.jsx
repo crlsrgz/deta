@@ -30,13 +30,15 @@ export function CabinetModel() {
   const testFirstPos = new Vector3(2, 2, 2);
   const copyFirst = Object.assign({}, testFirstPos);
   const testSecondPos = new Vector3(3, 3, 3);
-  const testThirdPos = new Vector3(3, 3, 3);
 
   console.log(testFirstPos.multiply(testSecondPos));
   console.log(testFirstPos);
   console.log(copyFirst);
 
   useEffect(() => {
+    /**
+     * @todo remove menu generation an implement it in the main app
+     */
     const elementList = document.querySelector('#element-list');
     const list = listSteps();
     list.forEach((item) => {
@@ -44,6 +46,7 @@ export function CabinetModel() {
       div.textContent = item;
       elementList.appendChild(div);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

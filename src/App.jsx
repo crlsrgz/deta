@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
 import { Environment, OrbitControls } from '@react-three/drei';
 
-import theData from './scenes/DAA-001/assets/Model.data.json';
+import theData from '/Model.data.json?url';
 import { CabinetModel } from './cabinet/cabinet.model';
 
 // import { Perf } from "r3f-perf";
