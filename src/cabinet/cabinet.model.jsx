@@ -1,7 +1,7 @@
 import { Edges, Html, Outlines, useGLTF } from '@react-three/drei';
 // import { Perf } from "r3f-perf";
 import { useEffect, useState } from 'react';
-import { Vector3 } from 'three';
+import { Material, Vector3 } from 'three';
 import { MeshBasicMaterial } from 'three';
 
 export function CabinetModel() {
@@ -10,6 +10,7 @@ export function CabinetModel() {
   const { nodes, materials } = useGLTF('/Cabinet.glb');
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
+  const testMaterial = new MeshBasicMaterial({ color: 'blue' });
 
   let keys = Object.keys(nodes);
 
@@ -46,12 +47,20 @@ export function CabinetModel() {
       div.textContent = item;
       elementList.appendChild(div);
     });
+    // Generate one material
+    // console.log('the material name is ', materials['TrimMaterial']);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  /**
+   * @todo Solution to go back to the original material after switch to hover,
+   * @todo Investigate what will happen if the model, has just one material, multiple materials or none
+   *
+   */
   return (
     <>
       {/* <Perf position="bottom-right" /> */}
       {keys.map((key) => {
+        // saveMaterials.push([key, nodes])
         if (key !== 'Scene') {
           return (
             <mesh
@@ -65,7 +74,12 @@ export function CabinetModel() {
                   ? altMat
                   : key === seleceted
                     ? materialSelected
-                    : materials['Material.001']
+                    : materials[nodes[key].material?.name ?? 'nothing']
+                // : materials[test?.name ?? 'nothing']
+                // : materials['TrimMaterial']
+
+                // : testMaterial
+                // :materials['Material.001']
               }
               // material={materials["Material.001"]}
               onPointerOver={(e) => {
@@ -77,10 +91,14 @@ export function CabinetModel() {
                 e.stopPropagation();
                 setHover('');
               }}
+              /**
+               *  @todo left mouse button should deselect, right mouse button should pan
+               */
               onClick={(e) => {
                 e.stopPropagation();
                 setHover('');
                 setSelected(key);
+                console.log(nodes[key]);
               }}
               onPointerMissed={(e) => {
                 e.stopPropagation();
