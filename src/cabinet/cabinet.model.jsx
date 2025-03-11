@@ -7,7 +7,7 @@ import { MeshBasicMaterial } from 'three';
 export function CabinetModel() {
   const [hovered, setHover] = useState('');
   const [seleceted, setSelected] = useState('');
-  const { nodes, materials } = useGLTF('/Cabinet.glb');
+  const { nodes, materials } = useGLTF('/cim.glb');
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
@@ -84,9 +84,6 @@ export function CabinetModel() {
                 e.stopPropagation();
                 setHover('');
               }}
-              /**
-               *  @todo left mouse button should deselect, right mouse button should pan
-               */
               onClick={(e) => {
                 e.stopPropagation();
                 setHover('');
@@ -94,9 +91,12 @@ export function CabinetModel() {
                 console.log(nodes[key]);
               }}
               onPointerMissed={(e) => {
-                e.stopPropagation();
-                setHover('');
-                setSelected('');
+                console.log('event is', e);
+                if (e.type === 'click') {
+                  e.stopPropagation();
+                  setHover('');
+                  setSelected('');
+                }
               }}
             >
               <Edges
