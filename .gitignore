@@ -2,14 +2,16 @@
 logs
 *.log
 npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log* 
+yarn-error.log* 
 
-#global
-.env
 
 # Node
 node_modules
 dist
 dist-ssr
+coverage
 *.local
 
 # Editor 
@@ -22,10 +24,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+## Editor
+.vite
 log.txt
+
+#global
+.env
 
 # Extras
 public
+models
 001
 002
 003

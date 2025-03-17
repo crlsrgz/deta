@@ -6,10 +6,12 @@ import { useState } from 'react';
 import { Material, Vector3 } from 'three';
 import { MeshBasicMaterial } from 'three';
 
+import model from '../assets/models/Cabinet.glb?url';
+
 export function CabinetModel(props) {
   const [hovered, setHover] = useState('');
   const [selected, setSelected] = useState('');
-  const { nodes, materials } = useGLTF('/Cabinet.glb');
+  const { nodes, materials } = useGLTF(model);
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
