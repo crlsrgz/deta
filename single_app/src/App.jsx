@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { CabinetModel } from './components/Cabinet.compontent';
-import DetailsList from './components/DetailsList.component';
 import InfoBar from './components/InfoBar.component';
-import NavBarDesktop from './components/NavBarDesktop.component';
 
 export default function App() {
   const [cameraPosition, setCameraPosition] = useState([2, 1, 3]);

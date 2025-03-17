@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:send": "vite build --outDir dist-detail && cp dist-detail ../full_app",
+    "build:sendw": "@powershell Remove-Item -Recurse -Force dist-detail && vite build --outDir dist-detail && @powershell Copy-Item dist-detail -Recurse ../full_app",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\""
   },

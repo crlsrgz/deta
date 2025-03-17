@@ -32,6 +32,7 @@ log.txt
 .env
 
 # Extras
+dist-detail
 public
 models
 001
