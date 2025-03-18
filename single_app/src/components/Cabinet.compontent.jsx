@@ -63,6 +63,7 @@ export function CabinetModel(props) {
         {/* <ambientLight intensity={0.5} />
             <directionalLight position={(1, 1, 2)} /> */}
         <OrbitControls />
+        <axesHelper args={[3]} />
         {/* <Perf position="bottom-right" /> */}
         {keys.map((key) => {
           // saveMaterials.push([key, nodes])
