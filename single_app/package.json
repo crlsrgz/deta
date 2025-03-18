@@ -1,7 +1,7 @@
 {
-  "name": "test",
+  "name": "detail",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -32,5 +32,8 @@
     "prettier": "^3.5.3",
     "tailwindcss": "^3.4.17",
     "vite": "^6.2.0"
+  },
+  "volta": {
+    "node": "22.14.0"
   }
 }

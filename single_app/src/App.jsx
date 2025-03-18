@@ -5,15 +5,17 @@ import InfoFooter from './components/InfoFooter.component';
 
 export default function App() {
   const [cameraPosition, setCameraPosition] = useState([2, 1, 3]);
+  const [open, setOpen] = useState(true);
+  console.log(open);
   return (
     <>
       <main className="flex h-screen w-full flex-col overflow-x-hidden">
         <InfoBar />
         <section className="relative h-full w-full bg-agave-900">
-          {/* <CabinetModel canvasCameraPosition={cameraPosition} /> */}
+          <CabinetModel canvasCameraPosition={cameraPosition} />
         </section>
-        <section className="w-full">
-          <InfoFooter />
+        <section className="w-full" >
+          <InfoFooter openState={open} switchOpenState={()=>{setOpen(!open)}}  title="click me"/>
         </section>
       </main>
     </>
