@@ -4,8 +4,11 @@ import InfoBar from './components/InfoBar.component';
 import InfoFooter from './components/InfoFooter.component';
 
 // Load data
-const response = await fetch('/model-data.json');
-const modelData = await response.json();
+const responseModel = await fetch('/model-data.json');
+const modelData = await responseModel.json();
+
+const responsElement = await fetch('/material-data.json');
+const materialData = await responsElement.json();
 
 export default function App() {
   const [cameraPosition, setCameraPosition] = useState([2, 1, 3]);
@@ -26,7 +29,8 @@ export default function App() {
               setOpen(!open);
             }}
             title="click me"
-            data={modelData}
+            detailData={modelData}
+            materialData={materialData}
           />
         </section>
       </main>

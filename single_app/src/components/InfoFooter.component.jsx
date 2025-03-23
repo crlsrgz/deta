@@ -2,33 +2,47 @@ export default function InfoFooter({
   openState,
   switchOpenState,
   title,
-  data,
+  detailData,
+  materialData,
 }) {
+  const materialName = 'slabFloorConcrete';
+  const language = 'en';
+
+  materialData[materialName]
+    ? console.log(materialData[materialName])
+    : console.log('not here');
+
   return (
     <div
       id="info-footer-container"
-      className={`fixed inset-x-0 -bottom-0 z-20 flex h-56 flex-row gap-8 bg-limon-500 px-4 py-8 transition-all duration-700 ease-out md:px-16 lg:px-56 ${openState ? 'translate-y-0' : 'translate-y-24'}`}
+      className={`fixed inset-x-0 -bottom-0 z-20 flex h-56 flex-row gap-8 bg-limon-500 px-4 py-8 transition-all duration-700 ease-out md:px-16 lg:px-56 ${openState ? 'translate-y-0' : 'translate-y-36'}`}
     >
       <div className="info-footer-section w-1/6">
         <div className="info-footer-field">
-          {data.name ?? 'missing name from data'}
+          {detailData.name ?? 'missing name from data'}
         </div>
       </div>
 
       <div className="info-footer-section flex w-2/6 flex-col text-left">
         <div className="info-footer-field-title text-4xl">
-          {data.name ?? 'missing name from data'}
+          {detailData.name ?? 'missing name from data'}
         </div>
         <div className="info-footer-field">
-          {data.name ?? 'missing name from data'}
+          {detailData.name ?? 'missing name from data'}
         </div>
       </div>
       <div className="info-footer-section flex w-2/6 flex-col">
         <div className="info-footer-field">
-          {data.name ?? 'missing name from data'}
+          {materialData[materialName][language].name ??
+            'missing name from data'}
         </div>
         <div className="info-footer-field">
-          {data.name ?? 'missing name from data'}
+          {materialData[materialName][language].materialColloquial ??
+            'missing name from data'}
+        </div>
+        <div className="info-footer-field">
+          {materialData[materialName][language].extract ??
+            'missing name from data'}
         </div>
       </div>
       <div className="info-footer-section w-1/6">
