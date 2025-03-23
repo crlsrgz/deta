@@ -15,29 +15,38 @@ export function CabinetModel(props) {
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
+  const handleStringUpdate = (s) => {
+    // const newString = 'Updated from ClickChild at ' + new Date().toLocaleTimeString();
+    const newString = s.includes('Dämmung') ? 'slabFloorConcrete' : s;
+    props.onStringUpdate(newString); // Pass the new string to the parent
+    // props.onStringUpdate('slabFloorConcrete'); // Pass the new string to the parent
+    console.log('sent from child', newString);
+  };
+
   let keys = Object.keys(nodes);
 
   // Prepare a list for rearange position
-  const listSteps = () => {
-    const arr = [];
-    keys.forEach((item) => {
-      const tmp = item.substring(0, item.indexOf('-'));
-      if (!arr.includes(tmp)) {
-        arr.push(tmp);
-      }
-    });
-    return arr.sort();
-  };
+  // const listSteps = () => {
+  //   const arr = [];
+  //   keys.forEach((item) => {
+  //     const tmp = item.substring(0, item.indexOf('-'));
+  //     if (!arr.includes(tmp)) {
+  //       arr.push(tmp);
+  //     }
+  //   });
+  //   return arr.sort();
+  // };
 
-  console.log('--list steps', listSteps());
-  // Prepare a list for rearange position
-  const testFirstPos = new Vector3(2, 2, 2);
-  const copyFirst = Object.assign({}, testFirstPos);
-  const testSecondPos = new Vector3(3, 3, 3);
+  // console.log('--list steps', listSteps());
 
-  console.log(testFirstPos.multiply(testSecondPos));
-  console.log(testFirstPos);
-  console.log(copyFirst);
+  // // Prepare a list for rearange position
+  // const testFirstPos = new Vector3(2, 2, 2);
+  // const copyFirst = Object.assign({}, testFirstPos);
+  // const testSecondPos = new Vector3(3, 3, 3);
+
+  // console.log(testFirstPos.multiply(testSecondPos));
+  // console.log(testFirstPos);
+  // console.log(copyFirst);
 
   /**
    * @todo Solution to go back to the original material after switch to hover,
@@ -94,10 +103,12 @@ export function CabinetModel(props) {
                   e.stopPropagation();
                   setHover('');
                   setSelected(key);
-                  console.log(nodes[key]);
+                  console.log('click event', nodes[key].name);
+                  // console.log(materialNameSelected);
+                  handleStringUpdate(nodes[key].name);
                 }}
                 onPointerMissed={(e) => {
-                  console.log('event is', e);
+                  // console.log('event is', e);
                   if (e.type === 'click') {
                     e.stopPropagation();
                     setHover('');

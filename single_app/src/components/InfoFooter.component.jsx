@@ -3,14 +3,15 @@ export default function InfoFooter({
   switchOpenState,
   title,
   detailData,
+
   materialData,
 }) {
   const materialName = 'slabFloorConcrete';
   const language = 'en';
 
-  materialData[materialName]
-    ? console.log(materialData[materialName])
-    : console.log('not here');
+  // materialData[materialName]
+  //   ? console.log(materialData[materialName])
+  //   : console.log('not here');
 
   return (
     <div
