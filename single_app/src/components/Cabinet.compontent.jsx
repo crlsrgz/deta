@@ -30,7 +30,7 @@ export function CabinetModel(props) {
    * @param {string} s
    */
   const handleStringUpdate = (s) => {
-    const newString = s + '';
+    const newString = s.trim();
     props.onStringUpdate(newString); // Pass the new string to the parent
     logInfo('sent from child', newString);
   };
