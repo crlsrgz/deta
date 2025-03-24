@@ -80,14 +80,12 @@ export function CabinetModel(props) {
         <color attach="background" args={['#091417']} />
         {/* <Perf></Perf> */}
         <Environment preset="city" resolution={256} />
-
-        {/* <ambientLight intensity={0.5} />
-            <directionalLight position={(1, 1, 2)} /> */}
+        <ambientLight intensity={0.5} />
+        <directionalLight position={(1, 1, 2)} />
         <OrbitControls />
         <axesHelper args={[3]} />
         {/* <Perf position="bottom-right" /> */}
         {keys.map((key) => {
-          // saveMaterials.push([key, nodes])
           if (key !== 'Scene') {
             return (
               <mesh
