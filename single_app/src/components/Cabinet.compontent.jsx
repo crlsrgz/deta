@@ -9,13 +9,21 @@ import { MeshBasicMaterial } from 'three';
 import model from '../assets/models/Cabinet.glb?url';
 import logInfo from '../utils/logger';
 
+/**
+ *
+ * Materials and Edge Colors
+ */
+const materialHovered = new MeshBasicMaterial({ color: '#0000ff' });
+const materialSelected = new MeshBasicMaterial({ color: 'green' });
+
+const edgeColorStandard = 'black';
+const edgeColorHovered = 'olive';
+const edgeColorSelected = 'dodgerblue';
 
 export function CabinetModel(props) {
   const [hovered, setHover] = useState('');
   const [selected, setSelected] = useState('');
   const { nodes, materials } = useGLTF(model);
-  const altMat = new MeshBasicMaterial({ color: 'red' });
-  const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
   /**
    * Update the sting and send to parent component
@@ -90,7 +98,7 @@ export function CabinetModel(props) {
                 position={nodes[key].position}
                 material={
                   key === hovered
-                    ? altMat
+                    ? materialHovered
                     : key === selected
                       ? materialSelected
                       : materials[nodes[key].material?.name ?? 'nothing']
@@ -123,10 +131,10 @@ export function CabinetModel(props) {
                 <Edges
                   color={
                     key === hovered
-                      ? 'blue'
+                      ? edgeColorHovered
                       : key === selected
-                        ? 'red'
-                        : 'black'
+                        ? edgeColorSelected
+                        : edgeColorStandard
                   }
                   lineWidth={key === hovered ? 4 : key === selected ? 6 : 1}
                 ></Edges>
