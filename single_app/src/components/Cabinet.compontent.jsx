@@ -17,6 +17,10 @@ export function CabinetModel(props) {
   const altMat = new MeshBasicMaterial({ color: 'red' });
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
+  /**
+   * Update the sting and send to parent component
+   * @param {string} s
+   */
   const handleStringUpdate = (s) => {
     const newString = s + '';
     props.onStringUpdate(newString); // Pass the new string to the parent

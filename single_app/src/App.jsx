@@ -12,13 +12,31 @@ const responsElement = await fetch('/material-data.json');
 const materialData = await responsElement.json();
 
 export default function App() {
+  // Selected Element
+  /**
+   * @type {[number[], function]:void}
+   */
+  // eslint-disable-next-line no-unused-vars
   const [cameraPosition, setCameraPosition] = useState([2, 1, 3]);
+
+  // Selected Element
+  /**
+   * @type {[boolean, function]:void}
+   */
   const [open, setOpen] = useState(true);
 
   // Selected Element
+  /**
+   * @type {[string, function]:void}
+   */
   const [sharedString, setSharedString] = useState('Initial Value');
 
-  // Callback to update the shared string
+  /**
+   * Handle the data reveived from the parent component, callback to update the shared string
+   * in the child handleStringUpdate calls onStringUpdate and passes the string to the parent
+   * the argument received by the parent is newString
+   * @param {string} newString
+   */
   const handleStringUpdate = (newString) => {
     // const cleanUpNewString = newString.split('.')[0];
     const cleanUpNewString = newString.replace(/\d{3}$/, '');
