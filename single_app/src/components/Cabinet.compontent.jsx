@@ -16,10 +16,8 @@ export function CabinetModel(props) {
   const materialSelected = new MeshBasicMaterial({ color: 'green' });
 
   const handleStringUpdate = (s) => {
-    // const newString = 'Updated from ClickChild at ' + new Date().toLocaleTimeString();
-    const newString = s.includes('Dämmung') ? 'slabFloorConcrete' : s;
+    const newString = s + '';
     props.onStringUpdate(newString); // Pass the new string to the parent
-    // props.onStringUpdate('slabFloorConcrete'); // Pass the new string to the parent
     console.log('sent from child', newString);
   };
 

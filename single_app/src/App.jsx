@@ -19,9 +19,11 @@ export default function App() {
 
   // Callback to update the shared string
   const handleStringUpdate = (newString) => {
-    setSharedString(newString);
-    console.log('parent state updated', sharedString);
-    console.log('received from child', newString);
+    // const cleanUpNewString = newString.split('.')[0];
+    const cleanUpNewString = newString.replace(/\d{3}$/, '');
+    setSharedString(cleanUpNewString);
+    // console.log('parent state updated', sharedString);
+    // console.log('received from child', newString);
   };
 
   useEffect(() => {
