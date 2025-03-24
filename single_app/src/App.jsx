@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { CabinetModel } from './components/Cabinet.compontent';
 import InfoBar from './components/InfoBar.component';
 import InfoFooter from './components/InfoFooter.component';
+import logInfo from './utils/logger';
 
 // Load data
 const responseModel = await fetch('/model-data.json');
@@ -22,12 +23,12 @@ export default function App() {
     // const cleanUpNewString = newString.split('.')[0];
     const cleanUpNewString = newString.replace(/\d{3}$/, '');
     setSharedString(cleanUpNewString);
-    // console.log('parent state updated', sharedString);
-    // console.log('received from child', newString);
+
+    logInfo('parent state updated', sharedString);
   };
 
   useEffect(() => {
-    console.log('parent state useEffect', sharedString);
+    logInfo('parent state useEffect', sharedString);
     materialData[sharedString]
       ? console.log('is here', materialData[sharedString])
       : 'nothing here';

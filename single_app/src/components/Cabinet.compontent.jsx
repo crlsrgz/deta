@@ -7,6 +7,8 @@ import { Material, Vector3 } from 'three';
 import { MeshBasicMaterial } from 'three';
 
 import model from '../assets/models/Cabinet.glb?url';
+import logInfo from '../utils/logger';
+
 
 export function CabinetModel(props) {
   const [hovered, setHover] = useState('');
@@ -18,7 +20,7 @@ export function CabinetModel(props) {
   const handleStringUpdate = (s) => {
     const newString = s + '';
     props.onStringUpdate(newString); // Pass the new string to the parent
-    console.log('sent from child', newString);
+    logInfo('sent from child', newString);
   };
 
   let keys = Object.keys(nodes);
