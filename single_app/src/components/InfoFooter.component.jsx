@@ -12,7 +12,7 @@ export default function InfoFooter({
   // materialData[materialName]
   //   ? console.log(materialData[materialName])
   //   : console.log('not here');
-  console.log('material', materialData);
+  // console.log('material', materialData);
   return (
     <div
       id="info-footer-container"

@@ -1,3 +1,4 @@
+import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
 import { CabinetModel } from './components/Cabinet.compontent';
 import InfoBar from './components/InfoBar.component';
@@ -43,11 +44,11 @@ export default function App() {
     const cleanUpNewString = newString.replace(/\d{3}$/, '');
     setSharedString(cleanUpNewString);
 
-    logInfo('parent state updated', sharedString);
+    // logInfo('parent state updated', sharedString);
   };
 
   useEffect(() => {
-    logInfo('parent state useEffect', sharedString);
+    // logInfo('parent state useEffect', sharedString);
     materialData[sharedString]
       ? console.log('is here', materialData[sharedString])
       : 'nothing here';
@@ -59,13 +60,20 @@ export default function App() {
       <main className="flex h-screen w-full flex-col overflow-x-hidden">
         <InfoBar />
         <section className="relative h-full w-full bg-agave-900">
-          <CabinetModel
-            canvasCameraPosition={cameraPosition}
-            onStringUpdate={handleStringUpdate}
-          />
+          <Canvas
+            style={{ width: '100%', height: '100%' }}
+            camera={{
+              position: cameraPosition,
+              near: 0.01,
+              far: 100,
+              fov: 45,
+            }}
+          >
+            <CabinetModel onStringUpdate={handleStringUpdate} />
+          </Canvas>
         </section>
         <section className="w-full">
-          <InfoFooter
+          {/* <InfoFooter
             openState={open}
             switchOpenState={() => {
               setOpen(!open);
@@ -73,7 +81,7 @@ export default function App() {
             title="click me"
             detailData={modelData}
             materialData={materialData[sharedString] ?? dummyData}
-          />
+          /> */}
         </section>
       </main>
     </>
