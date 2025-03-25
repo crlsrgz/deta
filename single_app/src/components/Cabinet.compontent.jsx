@@ -123,6 +123,7 @@ export function CabinetModel(props) {
                     e.stopPropagation();
                     setHover('');
                     setSelected('');
+                    handleStringUpdate('');
                   }
                 }}
               >

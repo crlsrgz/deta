@@ -12,7 +12,7 @@ export default function InfoFooter({
   // materialData[materialName]
   //   ? console.log(materialData[materialName])
   //   : console.log('not here');
-
+  console.log('material', materialData);
   return (
     <div
       id="info-footer-container"
@@ -34,17 +34,15 @@ export default function InfoFooter({
       </div>
       <div className="info-footer-section flex w-2/6 flex-col">
         <div className="info-footer-field">
-          {materialData[materialName][language].name ??
+          {materialData[language].name ?? 'missing name from data'}
+        </div>
+        {/* <div className="info-footer-field">
+          {materialData[language].materialColloquial ??
             'missing name from data'}
         </div>
         <div className="info-footer-field">
-          {materialData[materialName][language].materialColloquial ??
-            'missing name from data'}
-        </div>
-        <div className="info-footer-field">
-          {materialData[materialName][language].extract ??
-            'missing name from data'}
-        </div>
+          {materialData[language].extract ?? 'missing name from data'}
+        </div> */}
       </div>
       <div className="info-footer-section w-1/6">
         <div className="info-footer-close z-30 -translate-y-2">

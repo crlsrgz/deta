@@ -3,13 +3,14 @@ import { CabinetModel } from './components/Cabinet.compontent';
 import InfoBar from './components/InfoBar.component';
 import InfoFooter from './components/InfoFooter.component';
 import logInfo from './utils/logger';
+import { dummyData } from './utils/dataFunctions';
 
 // Load data
 const responseModel = await fetch('/model-data.json');
 const modelData = await responseModel.json();
 
-const responsElement = await fetch('/material-data.json');
-const materialData = await responsElement.json();
+const responseElement = await fetch('/material-data.json');
+const materialData = await responseElement.json();
 
 export default function App() {
   // Selected Element
@@ -71,7 +72,7 @@ export default function App() {
             }}
             title="click me"
             detailData={modelData}
-            materialData={materialData}
+            materialData={materialData[sharedString] ?? dummyData}
           />
         </section>
       </main>
