@@ -60,29 +60,6 @@ export function CabinetModel(props) {
 
   let keys = Object.keys(nodes);
 
-  // Prepare a list for rearange position
-  // const listSteps = () => {
-  //   const arr = [];
-  //   keys.forEach((item) => {
-  //     const tmp = item.substring(0, item.indexOf('-'));
-  //     if (!arr.includes(tmp)) {
-  //       arr.push(tmp);
-  //     }
-  //   });
-  //   return arr.sort();
-  // };
-
-  // console.log('--list steps', listSteps());
-
-  // // Prepare a list for rearange position
-  // const testFirstPos = new Vector3(2, 2, 2);
-  // const copyFirst = Object.assign({}, testFirstPos);
-  // const testSecondPos = new Vector3(3, 3, 3);
-
-  // console.log(testFirstPos.multiply(testSecondPos));
-  // console.log(testFirstPos);
-  // console.log(copyFirst);
-
   /**
    * @todo Solution to go back to the original material after switch to hover,
    * @todo create a fallback material in case the node does not have one.
