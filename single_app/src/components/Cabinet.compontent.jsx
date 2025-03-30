@@ -29,21 +29,25 @@ export function CabinetModel(props) {
   /**
    * Animations
    */
+  // destructured inside an object
   const { actions } = useAnimations(animations, group);
+  const animationName = animations.map((value) => value.name);
 
   // console.log('actions', actions);
   // console.log('actions names', actions.names);
 
-  // const { actionName } = useControls({
-  //   actionName: { options: actions.names },
-  // });
+  const { actionName } = useControls({
+    actionName: { options: animationName },
+  });
 
+  console.log(animationName);
   useEffect(() => {
-    actions[animations[0].name].play();
+    // actions[animations[0].name].play();
+    actions[actionName].play();
 
     //Cleanup in useEffect
     return () => {};
-  }, []);
+  }, [actionName]);
 
   /**
    * Update the sting and send to parent component
