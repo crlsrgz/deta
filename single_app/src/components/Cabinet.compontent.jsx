@@ -23,30 +23,66 @@ const edgeColorSelected = 'dodgerblue';
 export function CabinetModel(props) {
   const [hovered, setHover] = useState('');
   const [selected, setSelected] = useState('');
-  const { nodes, materials, animations, scene } = useGLTF(model);
+  const { nodes, materials, animations } = useGLTF(model);
+  const groupRef = useRef();
 
   /**
    * Animations
    */
-  const actions = useAnimations(animations, scene);
-  // console.log('actions', actions);
-  // console.log('actions names', actions.names);
+  logInfo('step one');
+  const { actions, names } = useAnimations(animations, groupRef);
+  logInfo('step two');
+  // track loading state, because model/animations cannot be acceses if the load is not complete
+  const [isLoading, setIsLoading] = useState(true);
+  const [meshStates, setMeshStates] = useState({});
+  const [availabelAnimations, setAvailableAnimations] = useState(new Set());
 
-  const { actionName } = useControls({
-    actionName: { options: actions.names },
-  });
   useEffect(() => {
-    const runAction = actions.actions[actionName];
-    // const runAction = actions.actions[actionName];
-    console.log('run action', runAction, actions.actions, actionName);
-    runAction.reset().fadeIn(0.5).play();
+    if (!names || !actions) {
+      console.warn('No animations found in the model');
+      setIsLoading(false);
+      return;
+    }
 
-    //Cleanup in useEffect
-    return () => {
-      runAction.fadeOut(0.5);
-      console.log('dispose');
-    };
-  }, [actionName]);
+    setAvailableAnimations(new Set(names));
+
+    Object.keys(nodes).forEach((meshName) => {
+      setMeshStates((prev) => ({
+        ...prev,
+        [meshName]: false,
+      }));
+    });
+    setIsLoading(false);
+  }, [nodes, actions, names]);
+
+  // individual animation
+  const handleMeshANimation = (meshName) => {
+    // console.log(actions);
+
+    if (!actions[meshName]) return;
+
+    setMeshStates((prev) => ({
+      ...prev,
+      [meshName]: !prev[meshName],
+    }));
+    console.log(meshStates);
+    if (meshStates[meshName]) {
+      actions[meshName].stop();
+      console.log('stop action');
+    } else {
+      actions[meshName].play();
+      console.log('play action');
+    }
+  };
+
+  useEffect(() => {
+    logInfo('availabelAnimations', Array.from(availabelAnimations));
+    logInfo('current animation states:', meshStates);
+  });
+
+  if (isLoading) {
+    return null;
+  }
 
   /**
    * Update the sting and send to parent component
@@ -76,62 +112,65 @@ export function CabinetModel(props) {
       <OrbitControls />
       <axesHelper args={[3]} />
       {/* <Perf position="bottom-right" /> */}
-      {keys.map((key) => {
-        if (key !== 'Scene') {
-          return (
-            <mesh
-              key={key}
-              castShadow
-              receiveShadow
-              geometry={nodes[key].geometry}
-              position={nodes[key].position}
-              material={
-                key === hovered
-                  ? materialHovered
-                  : key === selected
-                    ? materialSelected
-                    : materials[nodes[key].material?.name ?? 'nothing']
-              }
-              onPointerOver={(e) => {
-                e.stopPropagation();
-                setHover(key);
-              }}
-              onPointerOut={(e) => {
-                e.stopPropagation();
-                setHover('');
-              }}
-              onClick={(e) => {
-                e.stopPropagation();
-                setHover('');
-                setSelected(key);
-                console.log('click event', nodes[key].name);
-                // console.log(materialNameSelected);
-                handleStringUpdate(nodes[key].name);
-              }}
-              onPointerMissed={(e) => {
-                // console.log('event is', e);
-                if (e.type === 'click') {
+      <group ref={groupRef}>
+        {keys.map((key) => {
+          if (key !== 'Scene') {
+            return (
+              <mesh
+                key={key}
+                castShadow
+                receiveShadow
+                geometry={nodes[key].geometry}
+                position={nodes[key].position}
+                material={
+                  key === hovered
+                    ? materialHovered
+                    : key === selected
+                      ? materialSelected
+                      : materials[nodes[key].material?.name ?? 'nothing']
+                }
+                onPointerOver={(e) => {
+                  e.stopPropagation();
+                  setHover(key);
+                }}
+                onPointerOut={(e) => {
                   e.stopPropagation();
                   setHover('');
-                  setSelected('');
-                  handleStringUpdate('');
-                }
-              }}
-            >
-              <Edges
-                color={
-                  key === hovered
-                    ? edgeColorHovered
-                    : key === selected
-                      ? edgeColorSelected
-                      : edgeColorStandard
-                }
-                lineWidth={key === hovered ? 4 : key === selected ? 6 : 1}
-              ></Edges>
-            </mesh>
-          );
-        }
-      })}
+                }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHover('');
+                  setSelected(key);
+                  console.log('click event', nodes[key].name);
+                  // console.log(materialNameSelected);
+                  handleStringUpdate(nodes[key].name);
+                  handleMeshANimation('CubeAction');
+                }}
+                onPointerMissed={(e) => {
+                  // console.log('event is', e);
+                  if (e.type === 'click') {
+                    e.stopPropagation();
+                    setHover('');
+                    setSelected('');
+                    handleStringUpdate('');
+                  }
+                }}
+              >
+                <Edges
+                  color={
+                    key === hovered
+                      ? edgeColorHovered
+                      : key === selected
+                        ? edgeColorSelected
+                        : edgeColorStandard
+                  }
+                  lineWidth={key === hovered ? 4 : key === selected ? 6 : 1}
+                ></Edges>
+              </mesh>
+            );
+          }
+        })}
+      </group>
     </>
   );
 }
