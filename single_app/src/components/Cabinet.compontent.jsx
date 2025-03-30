@@ -31,33 +31,38 @@ export function CabinetModel(props) {
    */
   // destructured inside an object
   const { actions } = useAnimations(animations, group);
-  const animationName = animations.map((value) => value.name);
 
-  // console.log('actions', actions);
-  // console.log('actions names', actions.names);
-
-  const { actionName } = useControls({
-    actionName: { options: animationName },
+  const { controlAnimation } = useControls({
+    controlAnimation: { options: ['play', 'stop'] },
   });
 
-  console.log(animationName);
   useEffect(() => {
-    // actions[animations[0].name].play();
+    logInfo('Analize actions methods:', actions[animations[0].name]);
 
-    const runAction = actions[actionName];
-    // const runAction = actions[actionName];
+    if (controlAnimation === 'play') {
+      animations.map((animation, index) => {
+        actions[animations[index].name].clampWhenFinished = true;
+        actions[animations[index].name].timeScale = 1;
+        actions[animations[index].name].setLoop(LoopOnce, 1);
+        actions[animations[index].name].reset().fadeIn(0.5).play();
+      });
+    } else {
+      animations.map((animation, index) => {
+        // actions[animations[index].name].stop();
+        // actions[animations[index].name].clampWhenFinished = false;
 
-    // console.log('run action', runAction, actions, actionName);
-    runAction.clampWhenFinished = true;
-    runAction.setLoop(LoopOnce, 1);
-    runAction.reset().fadeIn(0.5).play();
-
-    //Cleanup in useEffect
-    return () => {
-      runAction.fadeOut(0.5);
-      console.log('dispose');
-    };
-  }, [actionName]);
+        actions[animations[index].name].paused = false;
+        actions[animations[index].name].timeScale = -1;
+        // actions[animations[index].name].setLoop(LoopOnce, 1);
+        actions[animations[index].name].play();
+        //Cleanup in useEffect
+        // return () => {
+        //   actions[animations[index].name].fadeOut(0.5);
+        //   console.log('dispose');
+        // };
+      });
+    }
+  }, [controlAnimation]);
 
   /**
    * Update the sting and send to parent component
