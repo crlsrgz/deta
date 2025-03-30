@@ -2,7 +2,7 @@ import { OrbitControls, Environment, useAnimations } from '@react-three/drei';
 import { Edges, Html, Outlines, useGLTF } from '@react-three/drei';
 // import { Perf } from "r3f-perf";
 import { useEffect, useRef, useState } from 'react';
-import { Material, Vector3 } from 'three';
+import { LoopOnce, Material, Vector3 } from 'three';
 import { MeshBasicMaterial } from 'three';
 
 import model from '../assets/models/Cabinet.glb?url';
@@ -43,10 +43,20 @@ export function CabinetModel(props) {
   console.log(animationName);
   useEffect(() => {
     // actions[animations[0].name].play();
-    actions[actionName].play();
+
+    const runAction = actions[actionName];
+    // const runAction = actions[actionName];
+
+    // console.log('run action', runAction, actions, actionName);
+    runAction.clampWhenFinished = true;
+    runAction.setLoop(LoopOnce, 1);
+    runAction.reset().fadeIn(0.5).play();
 
     //Cleanup in useEffect
-    return () => {};
+    return () => {
+      runAction.fadeOut(0.5);
+      console.log('dispose');
+    };
   }, [actionName]);
 
   /**
