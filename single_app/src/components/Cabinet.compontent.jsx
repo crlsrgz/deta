@@ -1,16 +1,14 @@
-import { OrbitControls, Environment, useAnimations } from '@react-three/drei';
-import { Edges, Html, Outlines, useGLTF } from '@react-three/drei';
+import { OrbitCointrols, Environment, useAnimations } from '@react-three/drei';
+import { Edges, useGLTF } from '@react-three/drei';
 // import { Perf } from "r3f-perf";
 import { useEffect, useRef, useState } from 'react';
-import { LoopOnce, Material, Vector3 } from 'three';
-import { MeshBasicMaterial } from 'three';
+import { LoopOnce, MeshBasicMaterial } from 'three';
 
 import model from '../assets/models/Cabinet.glb?url';
 import logInfo from '../utils/logger';
 import { useControls } from 'leva';
 
 /**
- *
  * Materials and Edge Colors
  */
 const materialHovered = new MeshBasicMaterial({ color: '#0000ff' });
@@ -29,7 +27,10 @@ export function CabinetModel(props) {
   /**
    * Animations
    */
-  // destructured inside an object
+
+  /**
+   * important to destructure inside an object
+   */
   const { actions } = useAnimations(animations, group);
 
   const { controlAnimation } = useControls({
@@ -48,18 +49,9 @@ export function CabinetModel(props) {
       });
     } else {
       animations.map((animation, index) => {
-        // actions[animations[index].name].stop();
-        // actions[animations[index].name].clampWhenFinished = false;
-
         actions[animations[index].name].paused = false;
         actions[animations[index].name].timeScale = -1;
-        // actions[animations[index].name].setLoop(LoopOnce, 1);
         actions[animations[index].name].play();
-        //Cleanup in useEffect
-        // return () => {
-        //   actions[animations[index].name].fadeOut(0.5);
-        //   console.log('dispose');
-        // };
       });
     }
   }, [controlAnimation]);
@@ -95,19 +87,14 @@ export function CabinetModel(props) {
       {/* <Perf position="bottom-right" /> */}
       <group ref={group} {...props} dispose={null}>
         <group name={'Scene'}>
-          {/* <mesh
-            name="Cube000"
-            castShadow
-            receiveShadow
-            geometry={nodes.Cube000.geometry}
-            material={materials.Material}
-          /> */}
           {keys.map((key) => {
             if (key !== 'Scene') {
               return (
                 <mesh
                   key={key}
-                  //name is important to play the animation and keep ref
+                  /**
+                   *  name is important to play the animation, keep the references
+                   */
                   name={key}
                   castShadow
                   receiveShadow
