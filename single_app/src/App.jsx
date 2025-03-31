@@ -1,9 +1,14 @@
 import { Canvas } from '@react-three/fiber';
 import { useEffect, useState } from 'react';
-import { CabinetModel } from './components/Cabinet.compontent';
+/**
+ * Comonents
+ */
+import MainModel from './components/MainModel.component';
 import InfoBar from './components/InfoBar.component';
 import InfoFooter from './components/InfoFooter.component';
-import logInfo from './utils/logger';
+/**
+ * Helpers
+ */
 import { dummyData } from './utils/dataFunctions';
 
 // Load data
@@ -25,7 +30,7 @@ export default function App() {
   /**
    * @type {[boolean, function]:void}
    */
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   // Selected Element
   /**
@@ -69,11 +74,11 @@ export default function App() {
               fov: 45,
             }}
           >
-            <CabinetModel onStringUpdate={handleStringUpdate} />
+            <MainModel onStringUpdate={handleStringUpdate} />
           </Canvas>
         </section>
         <section className="w-full">
-          {/* <InfoFooter
+          <InfoFooter
             openState={open}
             switchOpenState={() => {
               setOpen(!open);
@@ -81,7 +86,7 @@ export default function App() {
             title="click me"
             detailData={modelData}
             materialData={materialData[sharedString] ?? dummyData}
-          /> */}
+          />
         </section>
       </main>
     </>
