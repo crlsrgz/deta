@@ -1,12 +1,17 @@
-import { OrbitCointrols, Environment, useAnimations } from '@react-three/drei';
-import { Edges, useGLTF } from '@react-three/drei';
-// import { Perf } from "r3f-perf";
 import { useEffect, useRef, useState } from 'react';
 import { LoopOnce, MeshBasicMaterial } from 'three';
+import {
+  OrbitControls,
+  Environment,
+  useAnimations,
+  Edges,
+  useGLTF,
+} from '@react-three/drei';
+import { useControls } from 'leva';
+import logInfo from '../utils/logger';
+// import { Perf } from "r3f-perf";
 
 import model from '../assets/models/Cabinet.glb?url';
-import logInfo from '../utils/logger';
-import { useControls } from 'leva';
 
 /**
  * Materials and Edge Colors
@@ -18,7 +23,7 @@ const edgeColorStandard = 'black';
 const edgeColorHovered = 'olive';
 const edgeColorSelected = 'dodgerblue';
 
-export function CabinetModel(props) {
+export default function MainModel(props) {
   const [hovered, setHover] = useState('');
   const [selected, setSelected] = useState('');
   const { nodes, materials, animations } = useGLTF(model);
@@ -27,31 +32,35 @@ export function CabinetModel(props) {
   /**
    * Animations
    */
-
-  /**
-   * important to destructure inside an object
-   */
+  // important to destructure inside an object
   const { actions } = useAnimations(animations, group);
 
   const { controlAnimation } = useControls({
-    controlAnimation: { options: ['play', 'stop'] },
+    controlAnimation: { options: ['paused', 'forward', 'backward'] },
   });
 
   useEffect(() => {
-    logInfo('Analize actions methods:', actions[animations[0].name]);
+    if (actions[animations[0]]) {
+      logInfo('Analize actions methods:', actions[animations[0].name]);
+    }
 
-    if (controlAnimation === 'play') {
+    if (controlAnimation === 'forward') {
       animations.map((animation, index) => {
         actions[animations[index].name].clampWhenFinished = true;
         actions[animations[index].name].timeScale = 1;
         actions[animations[index].name].setLoop(LoopOnce, 1);
         actions[animations[index].name].reset().fadeIn(0.5).play();
       });
-    } else {
+    } else if (controlAnimation === 'backward') {
       animations.map((animation, index) => {
         actions[animations[index].name].paused = false;
         actions[animations[index].name].timeScale = -1;
         actions[animations[index].name].play();
+      });
+    } else {
+      animations.map((animation, index) => {
+        actions[animations[index].name].timeScale = 1;
+        actions[animations[index].name].reset().stop();
       });
     }
   }, [controlAnimation]);
@@ -92,9 +101,7 @@ export function CabinetModel(props) {
               return (
                 <mesh
                   key={key}
-                  /**
-                   *  name is important to play the animation, keep the references
-                   */
+                  //  name is important to play the animation, keep the references
                   name={key}
                   castShadow
                   receiveShadow
