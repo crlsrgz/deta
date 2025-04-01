@@ -3,6 +3,10 @@ export default {
   content: ['./src/**/*.{js,ts,jsx,tsx,html}'],
   theme: {
     extend: {
+      fontFamily: {
+        anybody: ['anybody-regular', 'sans-serif'],
+        jakartaRegular: ['jakarta-regular', 'sans-serif'],
+      },
       fontSize: {
         '10xl': ['10rem', { lineHeight: '9rem' }],
       },
