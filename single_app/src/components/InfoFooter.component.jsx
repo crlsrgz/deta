@@ -37,18 +37,16 @@ export default function InfoFooter({
         className="info-footer-section flex w-6/12 flex-col text-left"
         tabIndex={31}
       >
-        <li
-          className="font-anybody info-footer-field-title text-4xl"
-          tabindex="-1"
-        >
-          {detailData.name ?? 'missing name from data'}
+        <li>
+          <h2>{detailData.name ?? 'missing name from data'}</h2>
         </li>
         <li className="info-footer-field" tabindex="-1">
-          {detailData.description ?? 'missing name from data'}
+          <h6>{detailData.description ?? 'missing name from data'}</h6>
+          <p>{detailData.description ?? 'missing name from data'}</p>
         </li>
       </ul>
       <ul
-        className="info-footer-section font-jakartaRegular flex w-4/12 flex-col"
+        className="info-footer-section flex w-4/12 flex-col font-jakartaRegular"
         tabIndex={41}
         role={'listbox'}
       >
