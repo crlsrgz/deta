@@ -62,6 +62,9 @@
   /* Font families */
   --font-title: Anybody-Regular, Arial, Helvetica, sans-serif;
   --font-regular: PlusJakartaSans-Regular, Verdana, Geneva, Tahoma, sans-serif;
+
+  /* Standards */
+  --border-size-base: calc(var(--base-size) * 0.5);
 }
 
 body,
@@ -112,4 +115,28 @@ h6 {
 p {
   font-family: var(--font-regular);
   font-size: var(--base-size);
+}
+
+.infobar__control-button {
+  height: 64px;
+  width: 64px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--limon-400);
+  border-radius: var(--border-size-base);
+  /* border: solid 1px; */
+}
+
+.infobar__control-button:hover {
+  color: var(--limon-200);
+  padding-top: 0px;
+  padding-bottom: 6px;
+}
+.infobar__control-button:active {
+  color: var(--agave-700);
+  background-color: var(--limon-200);
+  padding-top: 6px;
+  padding-bottom: 0px;
 }
