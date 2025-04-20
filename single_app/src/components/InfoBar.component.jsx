@@ -39,7 +39,7 @@ export function InfoBarControlButton({
 export default function InfoBar() {
   return (
     <>
-      <div className="fixed left-0 top-0 z-10 flex h-full w-24 flex-col content-center items-center justify-start gap-2 pt-6">
+      <div className="fixed left-0 top-0 z-10 flex h-full flex-col content-center items-center justify-start gap-2 pt-6">
         <InfoBarControlButton
           path={
             <path
