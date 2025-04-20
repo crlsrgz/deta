@@ -1,28 +1,42 @@
 import { useState } from 'react';
 
+/**
+ * Buttons
+ * @typedef {object} props InfoBarControlButton
+ * @property {string} path - SVG path data
+ * @property {SVGPathElement} alternative path - SVG path data in case the button icon has to change
+ * @property {string} [w]  button -  width
+ * @property {string} [h] button - height
+ * @property {string} [viewBox] - format 0 0 0 0
+ * @property {boolean} [false] css class big
+ */
+export function InfoBarControlButton({
+  path,
+  pathAlt,
+  w = '5',
+  h = '5',
+  viewBox = '0 0 24 24',
+  big = false,
+}) {
+  // Material Symbols Lightby Google
+  const [alt, setAlt] = useState(false);
+  return (
+    <button
+      className={`infobar__control-button ${big ? 'infobar__control-button--big' : ''}`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={`${w}rem`}
+        height={`${h}rem`}
+        viewBox={viewBox}
+      >
+        {alt ? pathAlt : path}
+      </svg>
+    </button>
+  );
+}
+
 export default function InfoBar() {
-  function InfoBarControlButton({
-    path,
-    pathAlt,
-    width = '5',
-    height = '5',
-    viewBox = '0 0 24 24',
-  }) {
-    // Material Symbols Lightby Google
-    const [alt, setAlt] = useState(false);
-    return (
-      <button className="infobar__control-button">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={`${width}rem`}
-          height={`${height}rem`}
-          viewBox={viewBox}
-        >
-          {alt ? pathAlt : path}
-        </svg>
-      </button>
-    );
-  }
   return (
     <>
       <div className="fixed left-0 top-0 z-10 flex h-full w-24 flex-col content-center items-center justify-start gap-2 pt-6">
