@@ -87,7 +87,7 @@ export default function MainModel(props) {
     <>
       <color attach="background" args={['#091417']} />
       {/* <Perf></Perf> */}
-      <Environment preset="city" resolution={256} />
+      <Environment files="/env.hdr" resolution={256} />
       <ambientLight intensity={0.5} />
       <directionalLight position={(1, 1, 2)} />
       <OrbitControls />
