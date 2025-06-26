@@ -48,8 +48,10 @@ export default function App() {
     // const cleanUpNewString = newString.split('.')[0];
     const cleanUpNewString = newString.replace(/\d{3}$/, '');
     setSharedString(cleanUpNewString);
-
     // logInfo('parent state updated', sharedString);
+    if (!open) {
+      setOpen(!open);
+    }
   };
 
   useEffect(() => {

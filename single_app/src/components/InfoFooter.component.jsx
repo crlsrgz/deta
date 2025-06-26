@@ -11,9 +11,8 @@
 export default function InfoFooter({
   openState,
   switchOpenState,
-  title,
+  title = 'click me',
   detailData,
-
   materialData,
 }) {
   const language = 'en';
@@ -27,7 +26,7 @@ export default function InfoFooter({
     <div
       id="info-footer-container"
       aria-expanded={openState}
-      className={`fixed inset-x-0 -bottom-0 z-20 flex h-56 flex-row gap-8 bg-limon-500 px-4 py-8 transition-all duration-700 ease-out md:px-16 lg:px-40 xl:px-56 ${openState ? 'translate-y-0' : 'translate-y-48'}`}
+      className={`fixed inset-x-0 -bottom-0 z-20 flex h-56 flex-row gap-8 bg-limon-500 px-4 py-16 transition-all duration-700 ease-out md:px-16 lg:px-40 xl:px-56 ${openState ? 'translate-y-0' : 'translate-y-40'}`}
     >
       <figure className="info-footer-section w-1/12" tabIndex={21}>
         <div className="h-24 w-24 border-4 border-solid border-agave-700"></div>
@@ -70,13 +69,24 @@ export default function InfoFooter({
         </li>
       </ul>
       <div className="info-footer-section w-1/12">
-        <div className="info-footer-close z-30 -translate-y-8">
+        <div className="info-footer-close z-30 -translate-y-16">
           <button
             tabIndex={51}
             onClick={switchOpenState}
             className="w-full text-center text-2xl"
           >
-            {title ?? 'Missing title'}
+            {/* {title ?? 'Missing title'} */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="64"
+              height="64"
+              viewBox="0 0 256 256"
+            >
+              <path
+                fill="currentColor"
+                d="M212.24 164.24a6 6 0 0 1-8.48 0L128 88.49l-75.76 75.75a6 6 0 0 1-8.48-8.48l80-80a6 6 0 0 1 8.48 0l80 80a6 6 0 0 1 0 8.48"
+              />
+            </svg>
           </button>
         </div>
       </div>
